@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script is displaying "Best School" 10 times
-jarvis=1
+jarvis=0
 while [[ $jarvis -le 19 ]]; do
     jarvis=$((jarvis+1))
     echo $jarvis
