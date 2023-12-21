@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-
+#Alternates between displaying bad luck on the 4th loop,
+#good luck on the 8th loop, and Best School for other iterations.
 i=0
 while [ $i -le 9 ] 
 do
