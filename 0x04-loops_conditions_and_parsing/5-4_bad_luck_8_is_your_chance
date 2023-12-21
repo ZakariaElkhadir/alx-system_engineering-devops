@@ -6,7 +6,7 @@ do
     i=$((i+1))
 if [[ $i -eq 4 ]]
 then
-    echo "Bad luck"
+    echo "bad luck"
 elif [[ $i -eq 8 ]]
 then
     echo "good luck"
