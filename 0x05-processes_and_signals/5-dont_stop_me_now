@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#stop process using kill
+name="4-to_infinity_and_beyond"
+pid=$(grep -f "$name")
+if [ -n "$pid" ]; then
+    kill "$pid"
+fi
