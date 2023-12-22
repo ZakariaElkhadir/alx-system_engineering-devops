@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #bash script displays
 
-trap 'echo "I am invincible!!!"' SUGTERM
+trap 'echo "I am invincible!!!"' SIGTERM
 while :
 do
     echo "To infinity and beyond"
