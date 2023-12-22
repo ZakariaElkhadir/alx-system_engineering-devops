@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
 
 name="7-highlander"
-pid=$(pgrep -f "$name")
-if [ -n "$pid" ]; then
-    kill "$pid"
-    echo "killed"
-fi
+pkill -9 -f ./$name
