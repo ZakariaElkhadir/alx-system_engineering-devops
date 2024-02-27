@@ -1,17 +1,33 @@
 #!/usr/bin/env bash
-#redirection
 
-sudo apt-get -y update
-sudo apt -y upgrade
-sudo apt-get -y install nginx
+# Update and install Nginx
+echo -e "Updating and installing Nginx.\n"
+sudo apt-get update -y -qq && \
+    sudo apt-get install nginx -y
 
-path=/var/www/html/index.html
-secpath=/etc/nginx/sites-available/default
-sudo sh -c "echo 'Hello World!' > $path"
+# Set up nginx configurations
+echo -e "\nSetting up nginx configurations.\n"
+
+# Start nginx service
 sudo service nginx start
 
-phrase='/^}$/i \ \n\tlocation \/redirect_me {return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;}'
+# Allow nginx through firewall (if applicable)
+sudo ufw allow 'Nginx HTTP'
 
-sudo sed -i $phrase $secfile
+# Adjust file permissions for user-friendliness
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
 
+# Create a backup of the default index file
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+# Create the new index file with "Hello World!"
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# Add redirection for /redirect_me to the YouTube video
+sudo sed -i '24i\    rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+
+# Restart nginx to apply changes
 sudo service nginx restart
+
+echo -e "\nCompleted.\n"
