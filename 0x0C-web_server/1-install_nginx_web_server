@@ -6,5 +6,5 @@ sudo apt-get -y install nginx
 
 path=/var/www/html/index.html
 
-sudo bash -c "echo 'Hello World!' > $path"
+sudo sh -c "echo 'Hello World!' > $path"
 service nginx start
