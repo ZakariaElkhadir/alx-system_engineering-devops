@@ -10,8 +10,8 @@ secpath=/etc/nginx/sites-available/default
 sudo sh -c "echo 'Hello World!' > $path"
 service nginx start
 
-phrase="location /redirect_me {\nreturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n} \n"
+phrase='/^}$/i \ \n\tlocation \/redirect_me {return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;}'
 
-sudo sed -i "30i $phrase" $secfile
+sudo sed -i $phrase $secfile
 
 sudo service nginx restart
