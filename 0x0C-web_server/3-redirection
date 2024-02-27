@@ -2,6 +2,7 @@
 #redirection
 
 sudo apt-get -y update
+sudo apt -y upgrade
 sudo apt-get -y install nginx
 
 path=/var/www/html/index.html
