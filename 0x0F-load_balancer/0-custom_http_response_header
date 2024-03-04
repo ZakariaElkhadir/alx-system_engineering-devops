@@ -8,26 +8,13 @@ file_path=var/www/html/index.html
 file_path2=etc/nginx/sites-available/default
 sudo bash -c "echo 'Hello World' > $file_path"
 
-# starting nginx service
 sudo service nginx start
+phrase="location /redirect_me {\nreturn 301 https://www.google.com;\n}\n}"
+sudo sed -i "30i $phrase" $file_path2
 
-# allowing nginx on firewall
-sudo ufw allow 'Nginx HTTP'
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html
+phrase2="error_page 404 /custom_404.html;\nlocation = /custom_404.html {\nroot /var/www/html;\ninternal;\n\t\t# hello i am ayoub \n\t\n}\n"
+sudo sed -i "30i $phrase2" $file1
 
-# Give the user ownership to website files for easy editing
-sudo chown -R "$USER":"$USER" /var/www/html
-sudo chmod -R 755 /var/www
-
-# Backup default index
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
-
-# Creating new index
-echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
-
-# Setting up /redirect_me to a youtube video
-sudo sed -i '24i\       rewrite ^/redirect_me https://www.google.com permanent;' /etc/nginx/sites-available/default
-
-# Restarting nginx
+sudo sed -i "/server_name _/a add_header X-Served-By $HOSTNAME;" $file1
 sudo service nginx restart
-
-echo -e "\nCompleted.\n"%     
