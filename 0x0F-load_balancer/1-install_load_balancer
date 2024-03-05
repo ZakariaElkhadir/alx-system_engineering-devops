@@ -18,4 +18,4 @@ backend web_server
   server 432577-web-02 54.162.5.215:80 check
 EOF
 
-sudo systemctl restart haproxy
+sudo service haproxy restart
