@@ -2,7 +2,7 @@
 #install and configure load_balancer
 
 sudo apt-get -y update
-apt-get install haproxy=2.8.\*
+apt-get install -y haproxy
 
 frontend http-in 
   bind *:80
