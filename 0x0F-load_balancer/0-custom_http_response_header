@@ -1,54 +1,12 @@
 #!/usr/bin/env bash
-#install nginx web server
-
+#Double the number of webservers
 sudo apt-get -y update
 sudo apt-get -y install nginx
 
-path=/var/www/html/index.html
-
-sudo sh -c "echo 'Hello World!' > $path"
-service nginx start
-
-echo -e "Updating and installing Nginx.\n"
-sudo apt-get update -y -qq && \
-         sudo apt-get install nginx -y
-
-echo -e "\nSetting up some minor stuff.\n"
-
-# starting nginx service
-sudo service nginx start
-
-# allowing nginx on firewall
-sudo ufw allow 'Nginx HTTP'
-
-# Give the user ownership to website files for easy editing
-sudo chown -R "$USER":"$USER" /var/www/html
-sudo chmod -R 755 /var/www
-
-# Backup default index
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
-
-# Creating new index
-echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
-
-# Setting up /redirect_me to a youtube video
-sudo sed -i '24i\       rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-
-# Restarting nginx
-sudo service nginx restart
-
-echo -e "\nCompleted.\n"
-
-sudo apt-get -y update
-sudo apt -y upgrade
-sudo apt-get -y install nginx
-file=/var/www/html/index.html
-file1=/etc/nginx/sites-available/default
-sudo sh -c "echo 'Hello World!' > $file"
-sudo service nginx start
-phrase="location /redirect_me {\nreturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n}\n"
-sudo sed -i "30i $phrase" $file1
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html
-phrase2="error_page 404 /custom_404.html;\nlocation = /custom_404.html {\nroot /var/www/html;\ninternal;\n\t\t# hello i am ayoub \n\t\n}\n"
-sudo sed -i "30i $phrase2" $file1
+config="/etc/nginx/sites-available/default"
+sudo sh -c "echo 'Hello World!' > /var/www/html/index.nginx-debian.html"
+sudo sed -i '/^}$/i \ \n\tlocation \/redirect_me {return 301 https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4;}' $config
+sudo sed -i '/^}$/i \ \n\tlocation @404 {return 404 "Ceci n'\''est pas une page\\n";}' $config
+sudo sed -i 's/=404/@404/g' $config
+sudo sed -i "0,/location \/ {/s/location \/ {/&\n\t\tadd_header X-Served-By '$HOSTNAME';/" $config
 sudo service nginx restart
