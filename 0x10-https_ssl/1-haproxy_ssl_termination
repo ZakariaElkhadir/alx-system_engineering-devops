@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 frontend http_front
-  bind *:80
-  bind *:443 ssl crt /etc/haproxy/certs/zakaria.onloine.pem
-  redirect scheme https code 301 if !{ ssl_fc }
-  default_backend http_back
+    bind *:80
+    bind *:443 ssl crt /etc/haproxy/certs/zakaria.onloine.pem
+    redirect scheme https code 301 if !{ ssl_fc }
+    default_backend http_back
+
 backend http_back
-  balance roundrobin
-  server web-01 54.237.94.232:80 check
-  server web-02 54.162.5.215:80 check
+    balance roundrobin
+    server web-01 54.237.94.232:80 check
+    server web-02 54.162.5.215:80 check
