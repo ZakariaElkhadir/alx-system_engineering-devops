@@ -6,4 +6,3 @@ sudo apt-get -y install nginx
 file=/var/www/html/index.html
 sudo bash -c "echo 'Hello World!' > $file"
 service nginx start
-
