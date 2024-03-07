@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 frontend http_front
     bind *:80
     bind *:443 ssl crt /etc/haproxy/certs/zakaria.onloine.pem
