@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# This script will take in a domain name and a subdomain and return the record type and the IP address it points to
 if [ $# -eq 0 ]; then
   exit
 fi
