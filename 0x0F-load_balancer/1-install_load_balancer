@@ -13,9 +13,8 @@ frontend http-in
 backend web_server
   mode http
   balance roundrobin
-  option httpchk HEAD / HTTP/1.0\r\nHost:localhost
-  server 432577-web-01 54.237.94.232:80 check
-  server 432577-web-02 54.162.5.215:80 check
+  server 432577-web-01 52.4.51.54:80 check
+  server 432577-web-02 100.26.20.115:80 check
 EOF
 
 sudo service haproxy restart
