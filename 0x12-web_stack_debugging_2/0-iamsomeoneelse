@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# This script is used to switch to another user and run a command as that user.
+# who ami
 if [ "$1" ]
-then
-sudo -u $1 whoami
+    then
+    sudo -u "$1" whoami
 fi
