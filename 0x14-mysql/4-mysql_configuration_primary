@@ -10,4 +10,3 @@ binlog_do_db = tyrell_corp
 # By default we only accept connections from localhost
 # modif commented bind adress
 #bind-address   = 127.0.0.1
-
