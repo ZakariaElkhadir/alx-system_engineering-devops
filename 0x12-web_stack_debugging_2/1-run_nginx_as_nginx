@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# who ami
-CONFIG_PATH="/path/to/custom_nginx.conf"
+# Run nginx as nginx user
 
-# Run the Docker container with the custom configuration
-docker run -d \
-    --name nginx-container \
-    -p 8080:8080 \
-    -v $CONFIG_PATH:/etc/nginx/conf.d/default.conf \
-    $IMAGE_NAME
+sed -i 's/user .*/user nginx;/g' /etc/nginx/nginx.conf
+
+sed -i 's/listen .*/listen 8080;/g' /etc/nginx/conf.d/default.conf
+
+service nginx restart
+
+ps aux | grep nginx
