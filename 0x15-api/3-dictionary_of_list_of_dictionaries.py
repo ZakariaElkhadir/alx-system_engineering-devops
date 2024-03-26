@@ -12,7 +12,7 @@ def main():
     data_dict = {}
 
     for dic in data:
-        user_id = dic.get('userId')
+        user_id = data_dict.get(dic.get('userId'))
         task_dict = {
             "task": dic.get('title'),
             "completed": dic.get('completed'), "username": dic.get('username')}
