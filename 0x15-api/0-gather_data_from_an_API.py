@@ -20,7 +20,7 @@ def main():
                  if dic.get('completed') is True]
 
     if data_name and data:
-        print("Employee {} is done with tasks({}/{})".format(
+        print("Employee {} is done with tasks({}/{}):".format(
             data_name, len(task_done), len(data)))
         print("".join(task_done), end='')
 
