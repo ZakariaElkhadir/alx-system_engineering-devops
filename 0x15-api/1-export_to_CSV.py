@@ -24,7 +24,7 @@ def main():
         with open('{}.csv'.format(sys.argv[1]), mode='w', newline='') as file:
             writer = csv.writer(file, quoting=csv.QUOTE_ALL)
             for dic in data:
-                writer.writerow([dic.get('userId'), data_name, dic.get(
+                writer.writerow([dic.get('url_name'), data_name, dic.get(
                     'completed'), dic.get('title')])
 
 
