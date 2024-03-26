@@ -2,16 +2,16 @@
 """script to export data in the CSV format"""
 import csv
 import requests
-import sys
+from sys import argv
 import json
 
 
 def main():
     """api_request"""
     url_task = "https://jsonplaceholder.typicode.com/users/{}/todos".format(
-        int(sys.argv[1]))
+        int(argv[1]))
     url_name = "https://jsonplaceholder.typicode.com/users/{}".format(
-        int(sys.argv[1]))
+        int(argv[1]))
     response = requests.get(url_task)
     response_name = requests.get(url_name)
     data = response.json()
@@ -22,10 +22,10 @@ def main():
         print("Employee {} is done with tasks({}/{}):".format(
             data_name, len(task_done), len(data)))
         print("".join(task_done), end='')
-        with open('{}.csv'.format(sys.argv[1]), mode='w', newline='') as file:
+        with open('{}.csv'.format(argv[1]), mode='w', newline='') as file:
             writer = csv.writer(file, quoting=csv.QUOTE_ALL)
             for dic in data:
-                writer.writerow([sys.argv[1], data_name, dic.get('completed'),
+                writer.writerow([argv[1], data_name, dic.get('completed'),
                                  dic.get('title')])
 
 
