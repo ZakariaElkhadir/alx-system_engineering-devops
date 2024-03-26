@@ -5,12 +5,12 @@ import requests
 from sys import argv
 
 
-def main():
+def main(user_id):
     """api_request"""
     url_task = "https://jsonplaceholder.typicode.com/users/{}/todos".format(
-        int(argv[1]))
+        int(user_id))
     url_name = "https://jsonplaceholder.typicode.com/users/{}".format(
-        int(argv[1]))
+        int(user_id))
     response = requests.get(url_task)
     response_name = requests.get(url_name)
     data = response.json()
@@ -21,11 +21,13 @@ def main():
         print("Employee {} is done with tasks({}/{}):".format(
             data_name, len(task_done), len(data)))
         print("".join(task_done), end='')
-        with open('{}.csv'.format(argv[1]), mode='w', newline='') as file:
+        csv_file = "{}.csv".format(user_id)
+        with open(csv_file, mode='w', newline='') as file:
             writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-            for dic in data:
-                writer.writerow([argv[1], data_name, dic.get('completed'),
-                                 dic.get('title')])
+            for row in data:
+                writer.writerow(
+                    [row.get('userId'), data_name,  row.get(
+                        'completed'), row.get('title')])
 
 
 if __name__ == "__main__":
