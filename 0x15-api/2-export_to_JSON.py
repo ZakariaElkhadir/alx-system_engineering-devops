@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """script to export data in the JSON format"""
+"""run file with ./2-export_to_JSON.py 2"""
 import json
 import requests
 from sys import argv
