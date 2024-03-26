@@ -14,7 +14,7 @@ def main():
     response = requests.get(url_task)
     response_name = requests.get(url_name)
     data = response.json()
-    data_name = response_name.json().get('name')
+    data_name = response_name.json().get('username')
     task_done = ['\t {}\n'.format(dic.get('title')) for dic in data
                  if dic.get('completed') is True]
     if data_name and data:
