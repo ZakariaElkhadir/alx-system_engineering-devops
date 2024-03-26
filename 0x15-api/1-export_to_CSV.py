@@ -5,12 +5,12 @@ import requests
 from sys import argv
 
 
-def main(user_id):
+def main():
     """api_request"""
     url_task = "https://jsonplaceholder.typicode.com/users/{}/todos".format(
-        int(user_id))
+        int(argv[1]))
     url_name = "https://jsonplaceholder.typicode.com/users/{}".format(
-        int(user_id))
+        int(argv[1]))
     response = requests.get(url_task)
     response_name = requests.get(url_name)
     data = response.json()
