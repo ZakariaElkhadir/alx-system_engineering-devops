@@ -24,8 +24,8 @@ def main():
         with open('{}.csv'.format(argv[1]), mode='w', newline='') as file:
             writer = csv.writer(file, quoting=csv.QUOTE_ALL)
             for dic in data:
-                writer.writerow([dic.get('url_name'), data_name, dic.get(
-                    'completed'), dic.get('title')])
+                writer.writerow([argv[1], data_name, dic.get('completed'),
+                                 dic.get('title')])
 
 
 if __name__ == "__main__":
