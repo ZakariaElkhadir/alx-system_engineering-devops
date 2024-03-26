@@ -21,7 +21,7 @@ def main(user_id):
         print("Employee {} is done with tasks({}/{}):".format(
             data_name, len(task_done), len(data)))
         print("".join(task_done), end='')
-        with open('{}.csv'.format(), mode='w', newline='') as file:
+        with open('{}.csv'.format(argv[1]), mode='w', newline='') as file:
             writer = csv.writer(file, quoting=csv.QUOTE_ALL)
             for dic in data:
                 writer.writerow([argv[1], data_name, dic.get('completed'),
