@@ -21,13 +21,11 @@ def main(user_id):
         print("Employee {} is done with tasks({}/{}):".format(
             data_name, len(task_done), len(data)))
         print("".join(task_done), end='')
-        csv_file = "{}.csv".format(user_id)
-        with open(csv_file, mode='w', newline='') as file:
+        with open('{}.csv'.format(), mode='w', newline='') as file:
             writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-            for row in data:
-                writer.writerow(
-                    [row.get('userId'), data_name,  row.get(
-                        'completed'), row.get('title')])
+            for dic in data:
+                writer.writerow([argv[1], data_name, dic.get('completed'),
+                                 dic.get('title')])
 
 
 if __name__ == "__main__":
