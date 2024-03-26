@@ -3,7 +3,6 @@
 import csv
 import requests
 from sys import argv
-import json
 
 
 def main():
