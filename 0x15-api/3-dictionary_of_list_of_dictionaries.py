@@ -1,33 +1,40 @@
 #!/usr/bin/python3
-"""
-script that, using this REST API,
-for a given employee ID,
-returns information
-"""
+"""api module"""
+
+import json
 import requests
-import sys
 
 
 def main():
-    """ api request"""
-    url_task = "https://jsonplaceholder.typicode.com/users/{}/todos".format(
-        int(sys.argv[1]))
-    url_name = "https://jsonplaceholder.typicode.com/users/{}".format(
-        int(sys.argv[1]))
-    response = requests.get(url_task)
-    response_name = requests.get(url_name)
-    data = response.json()
-    data_name = response_name.json().get('name')
-    task_done = ['\t {}\n'.format(dic.get('title')) for dic in data
-                 if dic.get('completed') is True]
+    url_tasks = "https://jsonplaceholder.typicode.com/todos"
+    tasks = requests.get(url_tasks).json()
+    data_json = {}
 
-    if data_name and data:
-        print("Employee {} is done with tasks({}/{}):".format(
-            data_name, len(task_done), len(data)))
-        print("".join(task_done), end='')
+    for obj in tasks:
+        user = data_json.get(obj.get("userId"))
+        if user:
+            user.append({
+                "task": obj.get('title'),
+                "completed": obj.get('completed'),
+                "username": user[0]["username"]
+                })
+        else:
+            data = []
+            url_name = "https://jsonplaceholder.typicode.com/users/{}".format(
+                int(obj.get("userId")))
+            username = requests = requests.get(url_name).json().get("username")
+            data.append(
+                {
+                    "task": obj.get("title"),
+                    "completed": obj.get("completed"),
+                    "username": username
+                }
+            )
+            data_json[obj.get("userId")] = data
+            file_name = "todo_all_employees.json"
+            with open(file_name, "w") as file:
+                json.dump(data_json, file)
 
 
-if __name__ == "__main__":
-    """ Entry point"""
+if __name__ == __main__:
     main()
-
