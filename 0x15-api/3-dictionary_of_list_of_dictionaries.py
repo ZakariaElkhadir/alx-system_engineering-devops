@@ -36,5 +36,5 @@ def main():
                 json.dump(data_json, file)
 
 
-if __name__ == __main__:
+if __name__ == "__main__":
     main()
