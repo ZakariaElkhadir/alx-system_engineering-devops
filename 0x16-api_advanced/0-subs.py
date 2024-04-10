@@ -19,3 +19,5 @@ def number_of_subscribers(subreddit):
     except (ValueError, TypeError) as e:
         print(f"JSON decoding error: {e}")
         return 0
+    if not subreddit:
+        return 0
