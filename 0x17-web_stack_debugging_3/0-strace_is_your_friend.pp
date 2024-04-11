@@ -1,15 +1,6 @@
-package { 'apache2': ensure => 'installed'}
+# fixes a file
 
-service { 'apache2':
-  ensure  => 'running',
-  enable  => true,
-  require => Package['apache2'],
+exec { 'fix-wordpress':
+  command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
+  path    => '/usr/local/bin/:/bin/'
 }
-
-file { '/var/www/html/index.html':
-  ensure  => file,
-  content => 'Hello, World!',
-  require => Package['apache2'],
-}
-
-
