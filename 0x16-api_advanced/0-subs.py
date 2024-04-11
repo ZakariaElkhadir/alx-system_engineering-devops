@@ -1,21 +1,20 @@
 #!/usr/bin/python3
 """api module"""
+
 import requests
-
-headers = {'User-Agent': 'MyCustomUserAgent/1.0'}
-
+import json
 
 def number_of_subscribers(subreddit):
-    """method doc"""
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        data = response.json()
-        return data.get('data', {}).get('subscribers', 0)
-    except requests.exceptions.RequestException as e:
-        print(f"Request failed: {e}")
-        return 0
-    except (ValueError, TypeError) as e:
-        print(f"JSON decoding error: {e}")
+    """doc doc"""
+    url = f'https://www.reddit.com/r/{subreddit}/about.json'
+    
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"}
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = json.loads(response.text)
+
+        subscribers = data["data"]["subscribers"]
+
+        return subscribers
+    else:
         return 0

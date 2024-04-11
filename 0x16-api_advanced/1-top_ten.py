@@ -4,7 +4,15 @@ import requests
 
 
 def top_ten(subreddit):
-    """doc doc"""
+    """
+    Prints the titles of the top 10 hot posts from a given subreddit.
+
+    Args:
+        subreddit (str): The name of the subreddit.
+
+    Returns:
+        None
+    """
     url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
     headers = {'User-Agent': 'MyCustomUserAgent/1.0'}
     if subreddit is None:
