@@ -1,8 +1,8 @@
-import requests
-
 #!/usr/bin/python3
 
 """api module"""
+
+import requests
 
 
 def top_ten(subreddit):
