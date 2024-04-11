@@ -5,6 +5,7 @@ import requests
 
 
 def recurse(subreddit, host_list=[]):
+    """print all hot post"""
     url = f'https://www.reddit.com/r/{subreddit}/hot.json'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
     response = requests.get(url, headers=headers)
@@ -14,4 +15,3 @@ def recurse(subreddit, host_list=[]):
         return titles
     else:
         return None
-
