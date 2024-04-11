@@ -2,7 +2,6 @@
 """api module"""
 
 import requests
-import json
 
 
 def number_of_subscribers(subreddit):
@@ -21,7 +20,7 @@ def number_of_subscribers(subreddit):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
-        data = json.loads(response.text)
+        data = response.json()
 
         subscribers = data["data"]["subscribers"]
 
