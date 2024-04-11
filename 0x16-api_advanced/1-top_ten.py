@@ -1,29 +1,18 @@
-#!/usr/bin/python3
-"""api module"""
 import requests
+
+#!/usr/bin/python3
+
+"""api module"""
 
 
 def top_ten(subreddit):
-    """
-    Prints the titles of the top 10 hot posts from a given subreddit.
+    url = f'https://www.reddit.com/r/{subreddit}/hot.json?limit=10'
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+    response = requests.get(url, headers=headers)
 
-    Args:
-        subreddit (str): The name of the subreddit.
-
-    Returns:
-        None
-    """
-    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
-    headers = {'User-Agent': 'MyCustomUserAgent/1.0'}
-    if subreddit is None:
-        return None
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
+    if response.status_code == 200:
         data = response.json()
-        for i in range(10):
-            print(data.get('data').get('children')[i].get('data').get('title'))
-    except requests.exceptions.RequestException as e:
-        print(f"Request failed: {e}")
-    except (ValueError, TypeError) as e:
-        print(f"JSON decoding error: {e}")
+        titles = [post['data']['title'] for post in data['data']['children']]
+        return titles
+    else:
+        return None
