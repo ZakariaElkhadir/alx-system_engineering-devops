@@ -16,6 +16,8 @@ def recurse(subreddit, hot_list=[], after=None):
                                 allow_redirects=False)
         if response.status_code == 200:
             data = response.json().get("data", {})
+            #  Titles of the hot posts are extracted from
+            # the children field and added to hot_list.
             hot_list.extend([post["data"]["title"]
                              for post in data.get("children", [])])
             next_after = data.get("after", None)
