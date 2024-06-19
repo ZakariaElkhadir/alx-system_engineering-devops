@@ -1,22 +1,17 @@
-#!/usr/bin/python3
-"""doc doc"""
-
+#!/use/bin/python3
 import requests
-from sys import argv
 
 
 def number_of_subscribers(subreddit):
-    """returns the number of subscribers"""
-    headers = {'User-Agent': 'Lizzie'}
-    url = requests.get('https://www.reddit.com/r/{}/about.json'
-                       .format(subreddit), headers=headers).json()
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {"User-Agent": "subreddit-subscriber-count-script/1.0"}
 
     try:
-        return url.get('data').get('subscribers')
+        response = requests.get(url, headers=headers, allow_redirects=False)
+        if response.status_code == 200:
+            data = response.json()
+            return data["data"]["subscribers"]
+        else:
+            return 0
     except Exception:
         return 0
-
-
-if __name__ == '__main__':
-    """main main"""
-    number_of_subscribers(argv[1])
