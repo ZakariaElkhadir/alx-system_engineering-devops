@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# This configuration file is used by the Nginx web server to define the server block for zakariaonline.tech domain.
+# It listens on port 80 and handles incoming requests for the specified domain.
+
+server {
+    listen 80;
+    server_name zakariaonline.tech;  # Replace with your actual domain
+
+    # The location block handles requests for the root directory ("/") and proxies them to the specified backend server.
+    location / {
+        proxy_pass http://localhost:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # The location block handles requests for the "/airbnb-onepage/" directory and serves static files from the specified directory.
+    location /airbnb-onepage/ {
+        alias /var/www/html/airbnb-onepage/;
+        index index.html index.htm;
+    }
+    # The location block handles requests for the "/number_odd_or_even/" directory and proxies them to the specified backend server.
+    location /number_odd_or_even/ {
+        proxy_pass http://localhost:5001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
