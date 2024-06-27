@@ -1,0 +1,52 @@
+# This configuration file is used for setting up an Nginx server.
+# It listens on port 80 and serves requests for the specified server name.
+
+server {
+    listen 80;
+    server_name 34.229.254.187;
+
+    # Adds a custom header to the response indicating the server that handled the request.
+    add_header  X-Served-By 432577-web-01;
+
+    location / {
+        # Forwards the request to the specified backend server at http://localhost:5000.
+        proxy_pass http://localhost:5000;
+
+        # Sets the Host header to the original request's host.
+        proxy_set_header Host $host;
+
+        # Sets the X-Real-IP header to the client's IP address.
+        proxy_set_header X-Real-IP $remote_addr;
+
+        # Sets the X-Forwarded-For header to the client's IP address.
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        # Sets the X-Forwarded-Proto header to the scheme (http or https) of the original request.
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /airbnb-onepage/ {
+        # Serves static files from the specified directory.
+        alias /var/www/html/airbnb-onepage/;
+        index index.html index.htm;
+    }
+
+    location /airbnb-dynamic/number_odd_or_even/ {
+        # Forwards the request to the specified backend server at http://localhost:5001.
+        proxy_pass http://localhost:5001;
+
+        # Sets the Host header to the original request's host.
+        proxy_set_header Host $host;
+
+        # Sets the X-Real-IP header to the client's IP address.
+        proxy_set_header X-Real-IP $remote_addr;
+
+        # Sets the X-Forwarded-Proto header to the scheme (http or https) of the original request.
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /api {
+        # Forwards the request to the specified backend server at http://127.0.0.1:5002/api.
+        proxy_pass http://127.0.0.1:5002/api;
+    }
+}
